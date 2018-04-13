@@ -1,7 +1,7 @@
 body {
-  margin: 0px;
   padding: 0px;
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0px;
 }
 
 a {
@@ -9,12 +9,14 @@ a {
 }
 #table-wrapper {
   display: flex;
-  
+
 }
 th {
   background-color: whitesmoke;
+  padding: 0em;
   text-align: left;
   border: 1px solid black;
+  padding: 0em;
   text-align: center;
 }
 td {
