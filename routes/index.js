@@ -13,7 +13,7 @@ router.get('/:busId', function(req, res, next) {
   
 });
 
-getBusData = (busId,cb) => {
+const getBusData = (busId,cb) => {
   
   let url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode='+busId;
   let options = {

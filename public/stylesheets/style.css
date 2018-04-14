@@ -14,10 +14,9 @@ a {
 }
 th {
   background-color: whitesmoke;
-  padding: 0em;
+  padding: 0.5em;
   text-align: left;
   border: 1px solid black;
-  padding: 0em;
   text-align: center;
 }
 td {
