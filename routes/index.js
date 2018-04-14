@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var rp = require('request-promise');
-
+//var moment = require('moment');
+var moment = require('moment-timezone');
+moment().tz("Asia/Singapore").format();
 /* GET home page. */
 router.get('/:busId', function(req, res, next) {
   
@@ -33,8 +35,10 @@ getBusData = (busId,cb) => {
             var mServiceNo = item.ServiceNo 
             var mOperator = item.Operator
 
-        		var nextBus = item.NextBus 
+            var nextBus = item.NextBus 
+            
             var mNextBusTiming = nextBus.EstimatedArrival.substring(11,16)
+            mNextBusTiming =  convertToMins(mNextBusTiming);
         		var mNextBusFeature = nextBus.Feature 
             var mNextBusLoad = nextBus.Load 
             var mNextBusType ;
@@ -47,7 +51,8 @@ getBusData = (busId,cb) => {
             }
 
         		var subBus = item.NextBus2 
-        		var mSubBusTiming = subBus.EstimatedArrival.substring(11,16)
+            var mSubBusTiming = subBus.EstimatedArrival.substring(11,16)
+            mSubBusTiming = convertToMins(mSubBusTiming);
         		var mSubBusFeature = subBus.Feature 
         		var mSubBusLoad = subBus.Load 
             var mSubBusType ;
@@ -61,7 +66,8 @@ getBusData = (busId,cb) => {
 
 
         		var subBus3 = item.NextBus3
-        		var mSubBus3Timing = subBus3.EstimatedArrival.substring(11,16)
+            var mSubBus3Timing = subBus3.EstimatedArrival.substring(11,16)
+            mSubBus3Timing = convertToMins(mSubBus3Timing);
         		var mSubBus3Feature = subBus3.Feature
             var mSubBus3Load = subBus3.Load
             var data = {
@@ -89,6 +95,14 @@ getBusData = (busId,cb) => {
     .catch(function (err) {
         // Crawling failed or Cheerio choked...
     });
+}
+
+convertToMins = (date) => {
+  let m = moment(date, "HH:mm").fromNow();
+  if (m.indexOf('in a few second') != -1) {
+    m = 'Arriving';
+  }
+  return m;
 }
 
 module.exports = router;
