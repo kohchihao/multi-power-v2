@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  table#desc
+    tr
+      th Service
+      th Service No.
+      th Arrival Time
+      th Next Bus Time
+
+    each val in data  
+      tr
+        td=val.mOperator
+          
+        td#tdBold=val.mServiceNo
+          
+        td 
+          div
+            table#des
+              tr 
+                if val.mNextBusTiming === 'Arriving'
+                  td#tdRed=val.mNextBusTiming 
+                else 
+                  td#tda=val.mNextBusTiming 
+                //td#tda=val.mNextBusFeature
+                //span=val.mNextBusType
+        td 
+          div
+            table#des
+              tr 
+                td#tda=val.mSubBusTiming
+                //td#tda=val.mSubBusFeature
+                //span=val.mSubBusType
+
+    
