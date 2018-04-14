@@ -3,7 +3,7 @@ var router = express.Router();
 var rp = require('request-promise');
 //var moment = require('moment');
 var moment = require('moment-timezone');
-moment().tz("Asia/Singapore").format();
+moment.tz.setDefault("Asia/Singapore");
 /* GET home page. */
 router.get('/:busId', function(req, res, next) {
   
