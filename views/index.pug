@@ -10,7 +10,19 @@ block content
 
     each val in data  
       tr
-        td=val.mOperator
+        td#image
+          if val.mOperator === 'SBST'
+            img(src="/images/SBST.png" alt="Image Title")
+          else if val.mOperator === 'SMRT'
+            img(src="/images/SMRT1.png" alt="Image Title")
+          else if val.mOperator === 'TTS'
+            img(src="/images/TTS.png" alt="Image Title")
+          else if val.mOperator === 'JTC'
+            img(src="/images/JTC.png" alt="Image Title")
+          else
+            span=val.mOperator
+
+        
           
         td#tdBold=val.mServiceNo
           

@@ -2,8 +2,8 @@ body {
   padding: 0px;
   font: 30px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0px;
-  background-color: #40e0d2;
-  color: black;
+  background-color: black;
+  color: white;
 }
 
 a {
@@ -14,14 +14,13 @@ a {
 
 }
 th {
-  background-color: #00868b;
-  text-align: left;
+  background-color: black;
   border: 1px solid white;
   padding: 0.5em;
   text-align: center;
 }
 td {
-  background-color:#40e0d2;
+  background-color:black;
   border: 1px solid white;
   padding: 0em;
 }
@@ -54,4 +53,12 @@ td {
 
 #tdBold {
   font-weight: bold;
+}
+
+#image img{
+  display:block; 
+  width:50%; 
+  height:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
