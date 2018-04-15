@@ -104,9 +104,9 @@ const getBusData = (busId,cb) => {
 
       rp(options)
       .then(function (data) { //data already in json.
-        console.log("THIS IS THE DATA"+JSON.stringify(data));
+        
         data.ShuttleServiceResult.shuttles.forEach(elem => {
-          let arriveTime = elem.arriveTime;
+          let arrivalTime = elem.arrivalTime;
           let name = elem.name; 
           let nextArrivalTime = elem.nextArrivalTime;
           let service = 'JTC';
@@ -114,7 +114,7 @@ const getBusData = (busId,cb) => {
           let data = {
             'mOperator' : service,
             'mServiceNo' : name,
-            'mNextBusTiming' : arriveTime,     
+            'mNextBusTiming' : arrivalTime,     
             'mSubBusTiming': nextArrivalTime,   
           }
           bus.push(data);
