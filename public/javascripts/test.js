@@ -9,7 +9,7 @@ function loadnewdata() {
 			$.ajax({
         type: 'GET',
         //contentType: 'application/json',
-        url: 'http://localhost:3000/18051',						
+        url: 'https://glib-profit.glitch.me/18051',						
         success: function(data) {
             console.log('success');
             console.log(data);
