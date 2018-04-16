@@ -1,129 +1,123 @@
 var express = require('express');
 var router = express.Router();
 var rp = require('request-promise');
-//var moment = require('moment');
 var moment = require('moment-timezone');
 moment.tz.setDefault("Asia/Singapore");
-/* GET home page. */
-router.get('/:busId', function(req, res, next) {
-  
-  getBusData(req.params.busId,function(data) {
+
+router.get('/:busId', function (req, res, next) {
+  getBusData(req.params.busId, function (data) {
     res.render('index', { data: data });
   })
-  
 });
 
+const getBusData = (busId, cb) => {
 
-const getBusData = (busId,cb) => {
-  
-  let url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode='+busId;
+  let url = 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=' + busId;
   let options = {
     url: url,
     headers: {
       'AccountKey': 'sc5MnGL2rNuA+V+XqKQnAQ==',
-      'UniqueUserId' : '2726a158-4685-42ad-bc3c-e517a9eb89ec',
+      'UniqueUserId': '2726a158-4685-42ad-bc3c-e517a9eb89ec',
       'accept': 'application/json',
     }
   }
   let bus = [];
   rp(options)
     .then(function (data) {
-      //let bus = [];
-      let json = JSON.parse(data);
       
+      let json = JSON.parse(data);
       json.Services.forEach(item => {
-            
-            var mServiceNo = item.ServiceNo 
-            var mOperator = item.Operator
 
-            var nextBus = item.NextBus 
-            //2018-04-15T00:16:28+08:00
-            //var mNextBusTiming = nextBus.EstimatedArrival.substring(11,16)
-            var mNextBusTiming = nextBus.EstimatedArrival
+        let mServiceNo = item.ServiceNo
+        let mOperator = item.Operator
 
-            mNextBusTiming =  convertTo12Hour(mNextBusTiming);
-        		var mNextBusFeature = nextBus.Feature 
-            var mNextBusLoad = nextBus.Load 
-            var mNextBusType ;
-            if (nextBus.Type == 'SD') {
-              mNextBusType = 'Single Deck';
-            } else if (nextBus.Type == 'DD') {
-              mNextBusType = 'Double Deck';
-            } else {
-              mNextBusType = 'Bendy';
-            }
+        //arrival timing
+        let nextBus = item.NextBus
+        let mNextBusTiming = nextBus.EstimatedArrival
+        mNextBusTiming = convertTo12Hour(mNextBusTiming);
+        let mNextBusFeature = nextBus.Feature
+        let mNextBusLoad = nextBus.Load
+        let mNextBusType;
+        if (nextBus.Type === 'SD') {
+          mNextBusType = 'Single Deck';
+        } else if (nextBus.Type === 'DD') {
+          mNextBusType = 'Double Deck';
+        } else {
+          mNextBusType = 'Bendy';
+        }
+        
+        //next arrival timing
+        let subBus = item.NextBus2
+        let mSubBusTiming = subBus.EstimatedArrival
+        mSubBusTiming = convertToMins(mSubBusTiming);
+        let mSubBusFeature = subBus.Feature
+        let mSubBusLoad = subBus.Load
+        let mSubBusType;
+        if (nextBus.Type === 'SD') {
+          mSubBusType = 'Single Deck';
+        } else if (nextBus.Type === 'DD') {
+          mSubBusType = 'Double Deck';
+        } else {
+          mSubBusType = 'Bendy';
+        }
 
-        		var subBus = item.NextBus2 
-            var mSubBusTiming = subBus.EstimatedArrival
-            mSubBusTiming = convertToMins(mSubBusTiming);
-        		var mSubBusFeature = subBus.Feature 
-        		var mSubBusLoad = subBus.Load 
-            var mSubBusType ;
-            if (nextBus.Type == 'SD') {
-              mSubBusType = 'Single Deck';
-            } else if (nextBus.Type == 'DD') {
-              mSubBusType = 'Double Deck';
-            } else {
-              mSubBusType = 'Bendy';
-            }
-
-
-        		var subBus3 = item.NextBus3
-            var mSubBus3Timing = subBus3.EstimatedArrival
-            mSubBus3Timing = convertToMins(mSubBus3Timing);
-        		var mSubBus3Feature = subBus3.Feature
-            var mSubBus3Load = subBus3.Load
-            var data = {
-              'mServiceNo' : mServiceNo,
-              'mOperator' : mOperator,
-              'mNextBusTiming' : mNextBusTiming, 
-              'mNextBusFeature' : mNextBusFeature,
-              'mNextBusLoad' : mNextBusLoad,
-              'mNextBusType' : mNextBusType,
-              'mSubBusTiming': mSubBusTiming,
-              'mSubBusFeature' : mSubBusFeature,
-              'mSubBusLoad' : mSubBusLoad,
-              'mSubBusType' : mSubBusType,
-              'mSubBus3Timing' : mSubBus3Timing,
-              'mSubBus3Feature' : mSubBus3Feature,
-              'mSubBus3Load' : mSubBus3Load
-  
-            }
+        let data = {
+          'mServiceNo': mServiceNo,
+          'mOperator': mOperator,
+          'mNextBusTiming': mNextBusTiming,
+          'mNextBusFeature': mNextBusFeature,
+          'mNextBusLoad': mNextBusLoad,
+          'mNextBusType': mNextBusType,
+          'mSubBusTiming': mSubBusTiming,
+          'mSubBusFeature': mSubBusFeature,
+          'mSubBusLoad': mSubBusLoad,
+          'mSubBusType': mSubBusType
+        }
         bus.push(data)
       });
 
       let url = 'https://jtcbus.comfortdelgro.com.sg/EventService.svc/ShuttleService';
       let options = {
         url: url,
-        method : 'POST',
+        method: 'POST',
         json: true,
-        body : {
-            busstopname :"Fusionopolis One"
+        body: {
+          busstopname: "Fusionopolis One"
         }
       }
 
-      rp(options)
-      .then(function (data) { //data already in json.
+      return rp(options);
+     
+    })
+    .then(function (res2) {
+      res2.ShuttleServiceResult.shuttles.forEach(elem => {
+        let arrivalTime = elem.arrivalTime;
+        console.log(arrivalTime);
+        arrivalTime = convertToHours(arrivalTime);
+        let name = elem.name;
         
-        data.ShuttleServiceResult.shuttles.forEach(elem => {
-          let arrivalTime = elem.arrivalTime;
-          let name = elem.name; 
-          let nextArrivalTime = elem.nextArrivalTime;
-          let service = 'JTC';
+        let nextArrivalTime = elem.nextArrivalTime;
+        if (nextArrivalTime === '-') {
+          nextArrivalTime = '-';
+        } else {
+          nextArrivalTime = 'in ' + elem.nextArrivalTime + ' minutes';
+        }
+        let service = 'JTC';
 
-          let data = {
-            'mOperator' : service,
-            'mServiceNo' : name,
-            'mNextBusTiming' : arrivalTime,     
-            'mSubBusTiming': nextArrivalTime,   
-          }
-          bus.push(data);
-        })
-        cb(bus);
+        let data = {
+          'mOperator': service,
+          'mServiceNo': name,
+          'mNextBusTiming': arrivalTime,
+          'mSubBusTiming': nextArrivalTime,
+        }
+        bus.push(data);
       })
-      //cb(bus);
-    }).catch(function (err) {
-        //err
+      
+      cb(bus);
+
+    })
+    .catch(function (err) {
+      //err
     });
 }
 
@@ -148,6 +142,15 @@ const convertTo12Hour = (date) => {
   if (m.indexOf('a few seconds ago') != -1) {
     m = 'Arrived';
   }
+  return m;
+}
+
+const convertToHours = (time) => {
+  let m = moment().add(time,'m').format('hh:mm A');
+  if (time === '-') {
+    m = '-';
+  }
+  console.log(m);
   return m;
 }
 

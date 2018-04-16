@@ -4,16 +4,15 @@ $(document).ready(function() {
   
 function loadnewdata() {
 	try {
-      
-      //location.reload();
-			$.ajax({
-        type: 'GET',
-        url: 'https://glib-profit.glitch.me/18051',						
-        success: function(data) {
-            console.log('success');
-            $("#desc").html(data);
-        }
-      })
+    //location.reload();
+    $.ajax({
+      type: 'GET',
+      url: '/18051',						
+      success: function(data) {
+          console.log('success');
+          $("#desc").html(data);
+      }
+    })
 	} catch(e) {
 		alert(e);
 	}
