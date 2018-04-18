@@ -49,7 +49,7 @@ const getBusData = (busId, cb) => {
         //next arrival timing
         let subBus = item.NextBus2
         let mSubBusTiming = subBus.EstimatedArrival
-        mSubBusTiming = convertToMins(mSubBusTiming);
+        mSubBusTiming = convertTo12Hour(mSubBusTiming);
         let mSubBusFeature = subBus.Feature
         let mSubBusLoad = subBus.Load
         let mSubBusType;
@@ -92,16 +92,17 @@ const getBusData = (busId, cb) => {
     .then(function (res2) {
       res2.ShuttleServiceResult.shuttles.forEach(elem => {
         let arrivalTime = elem.arrivalTime;
-        console.log(arrivalTime);
         arrivalTime = convertToHours(arrivalTime);
+        
         let name = elem.name;
         
         let nextArrivalTime = elem.nextArrivalTime;
-        if (nextArrivalTime === '-') {
-          nextArrivalTime = '-';
-        } else {
-          nextArrivalTime = 'in ' + elem.nextArrivalTime + ' minutes';
-        }
+        nextArrivalTime = convertToHours(nextArrivalTime);
+        // if (nextArrivalTime === '-') {
+        //   nextArrivalTime = '-';
+        // } else {
+        //   nextArrivalTime = 'in ' + elem.nextArrivalTime + ' minutes';
+        // }
         let service = 'JTC';
 
         let data = {
@@ -150,7 +151,7 @@ const convertToHours = (time) => {
   if (time === '-') {
     m = '-';
   }
-  console.log(m);
+  //console.log(m);
   return m;
 }
 
