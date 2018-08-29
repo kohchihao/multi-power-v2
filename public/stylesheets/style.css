@@ -3,7 +3,7 @@ body {
   font: 30px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0px;
   background-color: white;
-  color: white;
+  color: black;
 }
 
 a {
@@ -14,14 +14,14 @@ a {
 
 }
 th {
-  background-color: black;
-  border: 1px solid white;
+  background-color: white;
+  border: 1px solid black;
   padding: 0.5em;
   text-align: center;
 }
 td {
-  background-color:black;
-  border: 1px solid white;
+  background-color:white;
+  border: 1px solid black;
   padding: 0em;
 }
 
