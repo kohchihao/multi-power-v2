@@ -1,0 +1,42 @@
+block content
+
+table#desc
+    tr
+      th Service
+      th Service No.
+      th Arrival Time
+      th Next Bus Time
+
+    each val in data  
+      tr
+        td#image
+          if val.mOperator === 'SBST'
+            img(src="/images/SBST.png" alt="Image Title")
+          else if val.mOperator === 'SMRT'
+            img(src="/images/SMRT1.png" alt="Image Title")
+          else if val.mOperator === 'TTS'
+            img(src="/images/TTS.png" alt="Image Title")
+          else if val.mOperator === 'JTC'
+            img(src="/images/JTC.png" alt="Image Title")
+          else
+            span=val.mOperator
+
+        td#tdBold=val.mServiceNo
+          
+        td 
+          div
+            table#des
+              tr 
+                if val.mNextBusTiming === 'Arriving'
+                  td#tdRed=val.mNextBusTiming 
+                else 
+                  td#tda=val.mNextBusTiming 
+                //td#tda=val.mNextBusFeature
+                //span=val.mNextBusType
+        td 
+          div
+            table#des
+              tr 
+                td#tda=val.mSubBusTiming
+                //td#tda=val.mSubBusFeature
+                //span=val.mSubBusType

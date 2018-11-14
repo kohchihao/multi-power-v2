@@ -7,7 +7,7 @@ function loadnewdata() {
     //location.reload();
     $.ajax({
       type: 'GET',
-      url: '/api/18051',						
+      url: '/api/46479',						
       success: function(data) {
           console.log('success');
           $("#desc").html(data);

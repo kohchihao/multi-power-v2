@@ -17,7 +17,7 @@ router.get('/:busId', function (req, res, next) {
 
 router.get('/api/:busId', function (req, res, next) {
   getBusData(req.params.busId, function (data) {
-    res.send({data: data});
+    res.render('table', { data: data });
   })
 });
 
