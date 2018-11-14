@@ -3,7 +3,7 @@ $(document).ready(function() {
   busId = busId.substring(1); //to remove / from /46479
   setInterval( function() { 
     loadnewdata(busId); 
-  }, 5000 );
+  }, 60000 );
 });
 
 //to refresh bus data.
