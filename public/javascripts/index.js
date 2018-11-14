@@ -6,6 +6,12 @@ $(document).ready(function() {
   }, 60000 );
 });
 
+function update() {
+  $('#clock').html(moment().format('DD/MM/YYYY h:mm:ss a'));
+}
+
+setInterval(update, 1000);
+
 //to refresh bus data.
 function loadnewdata(busId) {
 	try {
