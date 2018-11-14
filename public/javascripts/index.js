@@ -1,5 +1,5 @@
 $(document).ready(function() { 
-  setInterval(loadnewdata, 60000);
+  setInterval(loadnewdata, 5000);
 });
   
 function loadnewdata() {
@@ -7,7 +7,7 @@ function loadnewdata() {
     //location.reload();
     $.ajax({
       type: 'GET',
-      url: '/18051',						
+      url: '/api/18051',						
       success: function(data) {
           console.log('success');
           $("#desc").html(data);
