@@ -25,37 +25,24 @@ td {
   padding: 0em;
 }
 
-#desc {
+#table {
   table-layout:fixed; 
   width: 100%;
   border-collapse: collapse;
   text-align: center;
 }
 
-#des {
+#busTimingCell {
   table-layout:fixed; 
   width: 100%;
   border-collapse: collapse;
 }
 
-#tda {
-  /* border: 1px solid white; */
-  border: 0px solid white;
-  padding: 1em;
-}
-
-#tdRed {
-  /* border: 1px solid white; */
-  color : #ef5350;
-  border: 0px solid white;
-  padding: 1em;
-}
-
-#tdBold {
+#serviceNoBold {
   font-weight: bold;
 }
 
-#image img{
+#service img{
   display:block; 
   width:50%; 
   height:auto;

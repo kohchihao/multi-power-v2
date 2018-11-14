@@ -9,7 +9,6 @@ $(document).ready(function() {
 //to refresh bus data.
 function loadnewdata(busId) {
 	try {
-    //location.reload();
     console.log(busId);
     $.ajax({
       type: 'GET',

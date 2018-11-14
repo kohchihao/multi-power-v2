@@ -1,42 +1,42 @@
 block content
 
-table#desc
+table#table
     tr
       th Service
       th Service No.
       th Arrival Time
       th Next Bus Time
 
-    each val in data  
+    each busObject in data  
       tr
-        td#image
-          if val.mOperator === 'SBST'
+        td#service
+          if busObject.mOperator === 'SBST'
             img(src="/images/SBST.png" alt="Image Title")
-          else if val.mOperator === 'SMRT'
+          else if busObject.mOperator === 'SMRT'
             img(src="/images/SMRT1.png" alt="Image Title")
-          else if val.mOperator === 'TTS'
+          else if busObject.mOperator === 'TTS'
             img(src="/images/TTS.png" alt="Image Title")
-          else if val.mOperator === 'JTC'
+          else if busObject.mOperator === 'JTC'
             img(src="/images/JTC.png" alt="Image Title")
           else
-            span=val.mOperator
+            span=busObject.mOperator
 
-        td#tdBold=val.mServiceNo
+        td#serviceNoBold=busObject.mServiceNo
           
         td 
           div
-            table#des
+            table#busTimingCell
               tr 
-                if val.mNextBusTiming === 'Arriving'
-                  td#tdRed=val.mNextBusTiming 
+                if busObject.mNextBusTiming === 'Arriving'
+                  td#tdRed=busObject.mNextBusTiming 
                 else 
-                  td#tda=val.mNextBusTiming 
+                  td#tda=busObject.mNextBusTiming 
                 //td#tda=val.mNextBusFeature
                 //span=val.mNextBusType
         td 
           div
-            table#des
+            table#busTimingCell
               tr 
-                td#tda=val.mSubBusTiming
+                td#tda=busObject.mSubBusTiming
                 //td#tda=val.mSubBusFeature
                 //span=val.mSubBusType
