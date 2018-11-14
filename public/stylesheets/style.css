@@ -66,3 +66,12 @@ td {
 #wallpaper {
  width: 100%; 
 }
+
+#header {
+  display:flex; 
+  flex-direction: column;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  
+}
