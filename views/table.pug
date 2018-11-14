@@ -28,15 +28,15 @@ table#table
             table#busTimingCell
               tr 
                 if busObject.mNextBusTiming === 'Arriving'
-                  td#tdRed=busObject.mNextBusTiming 
+                  td#redFont=busObject.mNextBusTiming 
                 else 
-                  td#tda=busObject.mNextBusTiming 
+                  td#busCell=busObject.mNextBusTiming 
                 //td#tda=val.mNextBusFeature
                 //span=val.mNextBusType
         td 
           div
             table#busTimingCell
               tr 
-                td#tda=busObject.mSubBusTiming
+                td#busCell=busObject.mSubBusTiming
                 //td#tda=val.mSubBusFeature
                 //span=val.mSubBusType

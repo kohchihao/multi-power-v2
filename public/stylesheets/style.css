@@ -38,6 +38,19 @@ td {
   border-collapse: collapse;
 }
 
+#busCell {
+  /* border: 1px solid white; */
+  border: 0px solid white;
+  padding: 1em;
+}
+
+#redFont {
+  /* border: 1px solid white; */
+  color : #ef5350;
+  border: 0px solid white;
+  padding: 1em;
+}
+
 #serviceNoBold {
   font-weight: bold;
 }
