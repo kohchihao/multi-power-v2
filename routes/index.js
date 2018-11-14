@@ -4,6 +4,11 @@ var rp = require('request-promise');
 var moment = require('moment-timezone');
 moment.tz.setDefault("Asia/Singapore");
 
+router.get('/', function (req, res, next) {
+  res.send('Working fine 😎');
+});
+
+
 router.get('/:busId', function (req, res, next) {
   getBusData(req.params.busId, function (data) {
     res.render('index', { data: data });
