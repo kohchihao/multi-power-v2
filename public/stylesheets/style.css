@@ -73,7 +73,9 @@ td {
   flex-direction: column;
   padding: 10px;
   padding-left: 20px;
+  padding-
   background-color: black;
   color: white;
+  align-items: center;
   
 }
