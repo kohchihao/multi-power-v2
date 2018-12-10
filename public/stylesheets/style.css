@@ -71,11 +71,15 @@ td {
 #header {
   display:flex; 
   flex-direction: column;
-  padding: 10px;
-  padding-left: 20px;
+  padding: 5px;
+/*   padding-left: 20px; */
   padding-bottom: 20px;
   background-color: black;
   color: white;
   align-items: center;
+}
+
+#headerTitle {
+ margin: 0 
   
 }
