@@ -87,52 +87,14 @@ const getBusData = (busId, cb) => {
         bus.push(data)
       });
 
-      let url = 'https://jtcbus.comfortdelgro.com.sg/EventService.svc/ShuttleService';
-      let options = {
-        url: url,
-        method: 'POST',
-        json: true,
-        body: {
-          busstopname: "Fusionopolis One"
-        }
-      }
-
-      return rp(options);
-     
-    })
-    .then(function (res2) {
-      res2.ShuttleServiceResult.shuttles.forEach(elem => {
-        let arrivalTime = elem.arrivalTime;
-        arrivalTime = convertToHours(arrivalTime);
-        
-        let name = elem.name;
-        
-        let nextArrivalTime = elem.nextArrivalTime;
-        nextArrivalTime = convertToHours(nextArrivalTime);
-        // if (nextArrivalTime === '-') {
-        //   nextArrivalTime = '-';
-        // } else {
-        //   nextArrivalTime = 'in ' + elem.nextArrivalTime + ' minutes';
-        // }
-        let service = 'JTC';
-
-        let data = {
-          'mOperator': service,
-          'mServiceNo': name,
-          'mNextBusTiming': arrivalTime,
-          'mSubBusTiming': nextArrivalTime,
-        }
-        bus.push(data);
-      })
-      
       cb(bus);
-
     })
     .catch(function (err) {
       //err
     });
 }
 
+// Convert given date to how many mins the bus will be arriving.
 const convertToMins = (date) => {
   //2018-04-15T00:16:28+08:00
   let m = moment(date).fromNow();
@@ -145,6 +107,7 @@ const convertToMins = (date) => {
   return m;
 }
 
+// Convert given date to 12 hour format.
 const convertTo12Hour = (date) => {
   //2018-04-15T00:16:28+08:00
   let m = moment(date).format('hh:mm A');
@@ -154,15 +117,6 @@ const convertTo12Hour = (date) => {
   if (m.indexOf('a few seconds ago') != -1) {
     m = 'Arrived';
   }
-  return m;
-}
-
-const convertToHours = (time) => {
-  let m = moment().add(time,'m').format('hh:mm A');
-  if (time === '-') {
-    m = '-';
-  }
-  //console.log(m);
   return m;
 }
 
