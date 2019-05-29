@@ -87,6 +87,23 @@ const getBusData = (busId, cb) => {
         bus.push(data)
       });
 
+      //cb(bus);
+
+      let url = 'http://baseride.com/routes/api/platformbusarrival/377577/?format=json';	
+      let options = {	
+        url: url,	
+        method: 'GET',	
+        json: true,
+      }	
+
+      return rp(options);
+    })
+    .then(function (res2) {
+      finalData = parseApiEndPoint(res2);
+      finalData.forEach(busObj => {
+        bus.push(busObj)
+      })
+
       cb(bus);
     })
     .catch(function (err) {
@@ -120,4 +137,65 @@ const convertTo12Hour = (date) => {
   return m;
 }
 
+// Get expected arrival time given forecast_time in seconds.
+const getExpectedArrivalTime = (forecast_time) => {
+  let expectedArrival = moment().add(forecast_time, 'seconds').format('hh:mm A')
+  return expectedArrival
+}
+
+const getBusNameFromRoute = (route_name) => {
+  if (route_name === "Route B") {
+    return "JTC B";
+  } else {
+    return "JTC C";
+  }
+}
+
+const parseApiEndPoint = (data) => {
+  let busB = [];
+  let busC = [];
+  let finalBusData = [];
+  data.forecast.forEach(elem => {    
+    let name = getBusNameFromRoute(elem.route.short_name);
+    if (name === "JTC B") {
+      busB.push(elem);
+    } else if (name === "JTC C") {
+      busC.push(elem);
+    }
+  })
+
+  let busBData = {	
+    'mOperator': "JTC",	
+    'mServiceNo': "JTC B",	
+    'mNextBusTiming': "-",	
+    'mSubBusTiming': "-",	
+  }
+  busB.forEach((busB, index) => {
+    if (index === 0) {
+      busBData.mNextBusTiming = getExpectedArrivalTime(busB.forecast_seconds);
+    } else if (index === 1) {
+      busBData.mSubBusTiming = getExpectedArrivalTime(busB.forecast_seconds)
+    }
+  })
+
+  finalBusData.push(busBData);
+  
+  let busCData = {	
+    'mOperator': "JTC",	
+    'mServiceNo': "JTC C",	
+    'mNextBusTiming': "-",	
+    'mSubBusTiming': "-",	
+  }
+  busC.forEach((busC,index) => {
+    if (index === 0) {
+      busCData.mNextBusTiming = getExpectedArrivalTime(busC.forecast_seconds);
+    } else if (index === 1) {
+      busCData.mSubBusTiming = getExpectedArrivalTime(busC.forecast_seconds)
+    }
+  })
+
+  finalBusData.push(busCData);
+
+  return finalBusData;
+}
 module.exports = router;
