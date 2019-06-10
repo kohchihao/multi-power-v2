@@ -87,25 +87,25 @@ const getBusData = (busId, cb) => {
         bus.push(data)
       });
 
-      cb(bus);
+      //cb(bus);
 
-      // let url = 'http://baseride.com/routes/api/platformbusarrival/377577/?format=json';	
-      // let options = {	
-      //   url: url,	
-      //   method: 'GET',	
-      //   json: true,
-      // }	
+      let url = 'http://baseride.com/routes/api/platformbusarrival/377577/?format=json';	
+      let options = {	
+        url: url,	
+        method: 'GET',	
+        json: true,
+      }	
 
-      // return rp(options);
+      return rp(options);
     })
-    // .then(function (res2) {
-    //   finalData = parseApiEndPoint(res2);
-    //   finalData.forEach(busObj => {
-    //     bus.push(busObj)
-    //   })
+    .then(function (res2) {
+      finalData = parseApiEndPoint(res2);
+      finalData.forEach(busObj => {
+        bus.push(busObj)
+      })
 
-    //   cb(bus);
-    // })
+      cb(bus);
+    })
     .catch(function (err) {
       //err
     });
