@@ -89,7 +89,7 @@ const getBusData = (busId, cb) => {
 
       //cb(bus);
 
-      let url = 'http://baseride.com/routes/api/platformbusarrival/377577/?format=json';	
+      let url = 'https://forecast.tongtar.com/jtc/forecast/377577';	
       let options = {	
         url: url,	
         method: 'GET',	
@@ -99,7 +99,7 @@ const getBusData = (busId, cb) => {
       return rp(options);
     })
     .then(function (res2) {
-      finalData = parseApiEndPoint(res2);
+      finalData = parseApiEndPointv2(res2);
       finalData.forEach(busObj => {
         bus.push(busObj)
       })
@@ -151,6 +151,7 @@ const getBusNameFromRoute = (route_name) => {
   }
 }
 
+/* NOT IN USE SINCE 02/09/2019 */
 const parseApiEndPoint = (data) => {
   let busB = [];
   let busC = [];
@@ -197,5 +198,28 @@ const parseApiEndPoint = (data) => {
   finalBusData.push(busCData);
 
   return finalBusData;
+}
+
+
+
+const parseApiEndPointv2 = (data) => {
+  let finalBusData = [];
+  const routes = data[0].routes;
+
+  routes.forEach((bus, index) => {
+    let busData = {	
+      'mOperator': "JTC",	
+      'mServiceNo': "",	
+      'mNextBusTiming': "-",	
+      'mSubBusTiming': "-",	
+    }
+    let name = getBusNameFromRoute(bus.routeName);
+    busData.mServiceNo = name;
+    busData.mNextBusTiming = getExpectedArrivalTime(bus.arrivalTime);
+    busData.mSubBusTiming = getExpectedArrivalTime(bus.nextArrivalTime);
+    finalBusData.push(busData);
+  })
+
+  return finalBusData;  
 }
 module.exports = router;
