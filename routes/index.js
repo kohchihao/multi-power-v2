@@ -139,7 +139,13 @@ const convertTo12Hour = (date) => {
 
 // Get expected arrival time given forecast_time in seconds.
 const getExpectedArrivalTime = (forecast_time) => {
-  let expectedArrival = moment().add(forecast_time, 'seconds').format('hh:mm A')
+  let expectedArrival;
+  if (forecast_time === undefined || forecast_time === '') {
+    expectedArrival = '-';
+  } else {
+    expectedArrival = moment().add(forecast_time, 'seconds').format('hh:mm A')
+  }
+  
   return expectedArrival
 }
 
@@ -213,7 +219,7 @@ const parseApiEndPointv2 = (data) => {
       'mNextBusTiming': "-",	
       'mSubBusTiming': "-",	
     }
-    let name = getBusNameFromRoute(bus.routeName);
+    let name = getBusNameFromRoute(bus.displayName);
     busData.mServiceNo = name;
     busData.mNextBusTiming = getExpectedArrivalTime(bus.arrivalTime);
     busData.mSubBusTiming = getExpectedArrivalTime(bus.nextArrivalTime);
