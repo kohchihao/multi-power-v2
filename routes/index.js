@@ -89,7 +89,8 @@ const getBusData = (busId, cb) => {
 
       //cb(bus);
 
-      let url = 'https://forecast.tongtar.com/jtc/forecast/377577';	
+      //let url = 'https://forecast.tongtar.com/jtc/forecast/377577';	
+      let url = 'https://forecast.tongtar.com/jtc/forecast/getall';
       let options = {	
         url: url,	
         method: 'GET',	
@@ -99,7 +100,8 @@ const getBusData = (busId, cb) => {
       return rp(options);
     })
     .then(function (res2) {
-      finalData = parseApiEndPointv2(res2);
+      let res = res2[10]
+      finalData = parseApiEndPointv2(res);
       finalData.forEach(busObj => {
         bus.push(busObj)
       })
@@ -210,7 +212,8 @@ const parseApiEndPoint = (data) => {
 
 const parseApiEndPointv2 = (data) => {
   let finalBusData = [];
-  const routes = data[0].routes;
+  //const routes = data[0].routes;
+  const routes = data.routes;
 
   routes.forEach((bus, index) => {
     let busData = {	
