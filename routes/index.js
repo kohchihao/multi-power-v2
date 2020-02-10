@@ -144,8 +144,10 @@ const getExpectedArrivalTime = (forecast_time) => {
   let expectedArrival;
   if (forecast_time === undefined || forecast_time === '') {
     expectedArrival = '-';
+  } else if (forecast_time === 'Arrive'){
+    expectedArrival = 'Arrived'
   } else {
-    expectedArrival = moment().add(forecast_time, 'seconds').format('hh:mm A')
+    expectedArrival = moment().add(forecast_time, 'minute').format('hh:mm A')
   }
   
   return expectedArrival
@@ -224,8 +226,11 @@ const parseApiEndPointv2 = (data) => {
     }
     let name = getBusNameFromRoute(bus.displayName);
     busData.mServiceNo = name;
-    busData.mNextBusTiming = getExpectedArrivalTime(bus.arrivalTime);
-    busData.mSubBusTiming = getExpectedArrivalTime(bus.nextArrivalTime);
+    busData.mNextBusTiming = getExpectedArrivalTime(bus.arrivalTime.substring(0, bus.arrivalTime.length - 1));
+    busData.mSubBusTiming = getExpectedArrivalTime(bus.nextArrivalTime.substring(0, bus.nextArrivalTime.length - 1));
+    
+    // busData.mNextBusTiming = bus.arrivalTime;
+    // busData.mSubBusTiming = bus.nextArrivalTime;
     finalBusData.push(busData);
   })
 
