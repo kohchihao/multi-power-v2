@@ -229,7 +229,7 @@ const parseApiEndPointv2 = (data) => {
     busData.mServiceNo = name;
     if (bus.arrivalTime) {
       busData.mNextBusTiming = getExpectedArrivalTime(bus.arrivalTime.substring(0, bus.arrivalTime.length - 1));
-    busData.mSubBusTiming = getExpectedArrivalTime(bus.nextArrivalTime.substring(0, bus.nextArrivalTime.length - 1));
+      busData.mSubBusTiming = getExpectedArrivalTime(bus.nextArrivalTime.substring(0, bus.nextArrivalTime.length - 1));
     } 
     // busData.mNextBusTiming = bus.arrivalTime;
     // busData.mSubBusTiming = bus.nextArrivalTime;
