@@ -5,45 +5,45 @@ block content
     h3#headerTitle Ayer Rajah Avenue - one-north Station
     div#clock loading
   img#wallpaper(src="/images/0002.jpg" alt="img")
-  //- table#table
-  //-   tr
-  //-     th Service
-  //-     th Service No.
-  //-     th Arrival Time
-  //-     th Next Bus Time
+  table#table
+    tr
+      th Service
+      th Service No.
+      th Arrival Time
+      th Next Bus Time
 
-  //-   each busObject in data  
-  //-     tr
-  //-       td#service
-  //-         if busObject.mOperator === 'SBST'
-  //-           img(src="/images/SBST.png" alt="Image Title")
-  //-         else if busObject.mOperator === 'SMRT'
-  //-           img(src="/images/SMRT1.png" alt="Image Title")
-  //-         else if busObject.mOperator === 'TTS'
-  //-           img(src="/images/TTS.png" alt="Image Title")
-  //-         else if busObject.mOperator === 'JTC'
-  //-           img(src="/images/JTC.png" alt="Image Title")
-  //-         else
-  //-           span=busObject.mOperator
+    each busObject in data  
+      tr
+        td#service
+          if busObject.mOperator === 'SBST'
+            img(src="/images/SBST.png" alt="Image Title")
+          else if busObject.mOperator === 'SMRT'
+            img(src="/images/SMRT1.png" alt="Image Title")
+          else if busObject.mOperator === 'TTS'
+            img(src="/images/TTS.png" alt="Image Title")
+          else if busObject.mOperator === 'JTC'
+            img(src="/images/JTC.png" alt="Image Title")
+          else
+            span=busObject.mOperator
 
-  //-       td#serviceNoBold=busObject.mServiceNo
+        td#serviceNoBold=busObject.mServiceNo
           
-  //-       td 
-  //-         div
-  //-           table#busTimingCell
-  //-             tr 
-  //-               if busObject.mNextBusTiming === 'Arriving'
-  //-                 td#redFont=busObject.mNextBusTiming 
-  //-               else 
-  //-                 td#busCell=busObject.mNextBusTiming 
-  //-               //td#tda=val.mNextBusFeature
-  //-               //span=val.mNextBusType
-  //-       td 
-  //-         div
-  //-           table#busTimingCell
-  //-             tr 
-  //-               td#busCell=busObject.mSubBusTiming
-  //-               //td#tda=val.mSubBusFeature
-  //-               //span=val.mSubBusType
+        td 
+          div
+            table#busTimingCell
+              tr 
+                if busObject.mNextBusTiming === 'Arriving'
+                  td#redFont=busObject.mNextBusTiming 
+                else 
+                  td#busCell=busObject.mNextBusTiming 
+                //td#tda=val.mNextBusFeature
+                //span=val.mNextBusType
+        td 
+          div
+            table#busTimingCell
+              tr 
+                td#busCell=busObject.mSubBusTiming
+                //td#tda=val.mSubBusFeature
+                //span=val.mSubBusType
 
     
