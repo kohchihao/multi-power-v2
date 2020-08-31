@@ -96,16 +96,6 @@ const getBusData = (busId, cb) => {
         method: 'GET',	
         json: true,
       }	
-
-      return rp(options);
-    })
-    .then(function (res2) {
-      let res = res2[10]
-      finalData = parseApiEndPointv2(res);
-      finalData.forEach(busObj => {
-        bus.push(busObj)
-      })
-
       cb(bus);
     })
     .catch(function (err) {
@@ -212,7 +202,7 @@ const parseApiEndPoint = (data) => {
 }
 
 
-
+/* Not used since 31/08/2020 */
 const parseApiEndPointv2 = (data) => {
   let finalBusData = [];
   //const routes = data[0].routes;
