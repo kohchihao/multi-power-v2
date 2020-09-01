@@ -96,6 +96,24 @@ const getBusData = (busId, cb) => {
         method: 'GET',	
         json: true,
       }	
+
+      let busDataB = {	
+        'mOperator': "JTC",	
+        'mServiceNo': "JTC B",	
+        'mNextBusTiming': "-",	
+        'mSubBusTiming': "-",	
+      }
+
+      let busDataC = {	
+        'mOperator': "JTC",	
+        'mServiceNo': "JTC C",	
+        'mNextBusTiming': "-",	
+        'mSubBusTiming': "-",	
+      }
+
+      bus.push(busDataB);
+      bus.push(busDataC);
+
       cb(bus);
     })
     .catch(function (err) {
